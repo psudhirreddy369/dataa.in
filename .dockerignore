@@ -1,0 +1,11 @@
+.git
+.gitignore
+.dockerignore
+README.md
+storage/enquiries.log
+*.md
+.DS_Store
+.tmp
+.vscode
+.idea
+agent-transcripts
