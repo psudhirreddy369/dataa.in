@@ -97,3 +97,16 @@ Optional social URLs (`SOCIAL_LINKEDIN`, etc.) — leave empty to hide footer ic
 6. Enable HTTPS on the host
 
 No build step. No npm.
+
+## Deploy to the Hostinger VPS (dataa.in)
+
+The domain points at the Hostinger VPS `srv2004801.hstgr.cloud`. Nginx is already serving HTTPS. PHP is not configured yet, so the public URL is still the placeholder page.
+
+On the VPS, open **hPanel → VPS → Terminal** as root and run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/psudhirreddy369/dataa.in/cursor/deploy-hostinger-vps-1903/deploy/install-on-vps.sh -o /root/install-on-vps.sh
+bash /root/install-on-vps.sh
+```
+
+The script installs PHP-FPM, clones this repo to `/var/www/dataa.in`, reuses the existing Let's Encrypt certificate, and reloads nginx. It keeps a backup under `/root/dataa-deploy-backup-*` and reloads nginx only after `nginx -t` succeeds.
