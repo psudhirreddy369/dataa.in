@@ -100,7 +100,12 @@ No build step. No npm.
 
 ## Deploy to the Hostinger VPS (dataa.in)
 
-The domain points at the Hostinger VPS `srv2004801.hstgr.cloud`. Nginx is already serving HTTPS. PHP is not configured yet, so the public URL is still the placeholder page.
+The domain already points at the Hostinger VPS `srv2004801.hstgr.cloud`. Nginx serves HTTPS for `dataa.in`. These paths stay on their current handlers:
+
+- `https://dataa.in/services/` (and everything under it, including `/services/health`)
+- `https://dataa.in/workflows/` (and everything under it)
+
+The installer only replaces the main site (`/`, `/contact.php`, `/assets/…`). It edits the existing nginx server in place, refuses to continue if the `/services` location is missing, and rolls back if those URLs change.
 
 On the VPS, open **hPanel → VPS → Terminal** as root and run:
 
@@ -109,4 +114,4 @@ curl -fsSL https://raw.githubusercontent.com/psudhirreddy369/dataa.in/cursor/dep
 bash /root/install-on-vps.sh
 ```
 
-The script installs PHP-FPM, clones this repo to `/var/www/dataa.in`, reuses the existing Let's Encrypt certificate, and reloads nginx. It keeps a backup under `/root/dataa-deploy-backup-*` and reloads nginx only after `nginx -t` succeeds.
+PHP files are published to `/var/www/dataa.in`. The previous nginx file is copied to `/root/dataa-deploy-backup-*`.
